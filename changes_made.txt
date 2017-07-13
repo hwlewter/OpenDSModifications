@@ -1,0 +1,26 @@
+
+notes:
+
+within car -> SteeringCar:
+	variables - 'brake_fault_applied' :: boolean to hold if brake fault is on/off
+	methods - "is_brake_fault_applied" :: returns variable 'brake_fault_applied'
+		 "apply_brake_fault" :: sets 'brake_fault_applied' to true
+	edits: inside method - "update()" added if/else to check 'brake_fault_applied'
+		if true - call "PanelCenter.set_brake_fault_image(true)"
+		else - call "PanelCenter.set_brake_fault_image(false)"
+
+within tools -> PanelCenter:
+	variable - added 'brake_fault_image' of type picture initiated to "Textures/Gauges/brake_fault_image.png"
+		 - added 'brake_fault_image_off' of type picture initiated to "Textures/Gauges/brake_fault_image_off.png"
+	method - added "set_brake_fault_image" to take boolean input :: inside is if/else
+			if true :: sets brake_fault_image.png to be visible
+			else    :: sets brake_fault_image_off.png to be visible
+
+within input -> simulatoractionlistener:
+	edit: to onAction method :: added else if for TOGGLE_BRAKE_FAULT signal from KeyMapping
+
+within input -> KeyMapping :
+	edit mapped TOGGLE_BRAKE_FAULT to KEY_C
+
+within environment -> XMLParser:
+	edit: inside method "evalCANInstruction" :: added if statement to toggle brake fault image
