@@ -175,6 +175,27 @@ public class XMLParser
 						
 						String actionID = currentAction.getAttribute("name");	
 						String valueString = getCharacterDataFromElement(currentAction);
+						
+						// dcg additions
+						// handles clutch/gearshift packets
+						
+						if(actionID.equals("gear")){
+							int gear_target = Integer.parseInt(valueString);
+							System.out.println(gear_target);
+							System.out.println(car.getTransmission().getGear());
+							while (gear_target != car.getTransmission().getGear()){
+								if (gear_target > car.getTransmission().getGear()){
+									car.getTransmission().shiftUp(false);
+								}
+								if (gear_target < car.getTransmission().getGear()) {
+									car.getTransmission().shiftDown(false);
+								}
+							}
+						}
+						
+						//end dcg
+						
+						
 
 						// performs a steering input
 						if(actionID.equals("steering"))
