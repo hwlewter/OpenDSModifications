@@ -107,6 +107,8 @@ public class KeyMapping
 	public static KeyMapping INC_CAM_ANGLE = new KeyMapping("inc_cam_angle", "increase angle between adjacent cameras", new String[] {});
 	public static KeyMapping DEC_CAM_ANGLE = new KeyMapping("dec_cam_angle", "decrease angle between adjacent cameras", new String[] {});
 	public static KeyMapping TOGLE_DISTANCEBAR = new KeyMapping("toggle_distancebar", "toggle visibility of distance bar", new String[] {"KEY_B"});
+	//add mapping for screenshots
+	public static KeyMapping TAKE_SCREENSHOT =  new KeyMapping("take_screenshot", "take a single screenshot", new String[] {"KEY_Z"});
 	
 	// analyzer keys
 	public static KeyMapping GOTO_NEXT_DATAPOINT = new KeyMapping("goto_next_datapoint", "next data point", new String[] {"KEY_UP"});
@@ -211,6 +213,8 @@ public class KeyMapping
 		keyMappingList.add(KeyMapping.INC_CAM_ANGLE);
 		keyMappingList.add(KeyMapping.DEC_CAM_ANGLE);
 		keyMappingList.add(KeyMapping.TOGLE_DISTANCEBAR);
+		//add new keymapping to list
+		keyMappingList.add(KeyMapping.TAKE_SCREENSHOT);
 
 		SimulationBasics.getDrivingTask().getSettingsLoader().lookUpKeyMappings(keyMappingList);
 		

@@ -23,6 +23,7 @@ import com.jme3.input.controls.ActionListener;
 import eu.opends.audio.AudioCenter;
 import eu.opends.camera.CameraFactory;
 import eu.opends.camera.CameraFactory.MirrorMode;
+import eu.opends.camera.ScreenshotCapture;
 import eu.opends.canbus.CANClient;
 import eu.opends.car.SteeringCar;
 import eu.opends.car.LightTexturesContainer.TurnSignalState;
@@ -727,6 +728,14 @@ public class SimulatorActionListener implements ActionListener
 		{
 			if(value)
 				sim.getMotorwayTask().setVisibilityDistanceBar(!sim.getMotorwayTask().getVisibilityDistanceBar());
+		}
+		else if (binding.equals(KeyMapping.TAKE_SCREENSHOT.getID())) {
+			if(value) {
+				//System.out.println("Z pressed for screenshot");
+				//PanelCenter.getMessageBox().addMessage("Z pressed for screenshot", 3);
+				ScreenshotCapture.showMessage();
+				ScreenshotCapture.testScreenshot();
+			}
 		}
 	}
 }
