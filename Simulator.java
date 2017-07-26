@@ -81,6 +81,7 @@ import eu.opends.traffic.PhysicalTraffic;
 import eu.opends.trigger.TriggerCenter;
 import eu.opends.visualization.LightningClient;
 import eu.opends.visualization.MoviePlayer;
+import eu.opends.camera.ScreenshotCapture;
 
 /**
  * 
@@ -97,6 +98,7 @@ public class Simulator extends SimulationBasics
     private int frameCounter = 0;
     private boolean drivingTaskGiven = false;
     private boolean initializationFinished = false;
+    public ScreenshotCapture ssCap;
     
     private static Float gravityConstant;
 	public static Float getGravityConstant()
@@ -380,6 +382,9 @@ public class Simulator extends SimulationBasics
 		
         // setup key binding
 		keyBindingCenter = new KeyBindingCenter(this);
+		
+		// add screenshot capture class
+		ssCap = new ScreenshotCapture(this);
         
         AudioCenter.init(this);
 
