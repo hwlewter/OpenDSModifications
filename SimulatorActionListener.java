@@ -733,8 +733,9 @@ public class SimulatorActionListener implements ActionListener
 			if(value) {
 				//System.out.println("Z pressed for screenshot");
 				//PanelCenter.getMessageBox().addMessage("Z pressed for screenshot", 3);
-				ScreenshotCapture.showMessage();
-				ScreenshotCapture.testScreenshot();
+				//ScreenshotCapture.showMessage();
+				//ScreenshotCapture.testScreenshot();
+				sim.ssCap.testScreenshot();
 			}
 		}
 	}
