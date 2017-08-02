@@ -26,6 +26,7 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
+import eu.opends.audio.AudioCenter;
 import eu.opends.canbus.CANClient;
 import eu.opends.car.SteeringCar;
 import eu.opends.environment.TrafficLight.*;
@@ -190,6 +191,33 @@ public class XMLParser
 								if (gear_target < car.getTransmission().getGear()) {
 									car.getTransmission().shiftDown(false);
 								}
+							}
+						}
+						
+						// handles key presses from device tester
+						if(actionID.equals("keyPress")){
+							String key = valueString.trim();
+							System.out.println(key);
+							if (key.equals("KEY_H")){ // toggle transmission mode
+								
+								System.out.println("toggle automatic");
+								car.getTransmission().setAutomatic(!car.getTransmission().isAutomatic());
+							}
+						}
+						
+						// handles button presses from wheel
+						if(actionID.equals("wheelButton")) {
+							String msg = valueString.trim();
+							switch (msg) {
+							case "transmission": // toggle transmission -- purple
+								car.getTransmission().setAutomatic(!car.getTransmission().isAutomatic());
+								break;
+							case "horn": // horn -- left yellow
+								AudioCenter.playSound("horn");
+								AudioCenter.fadeOut("horn",500);
+								break;
+							default:
+									break;
 							}
 						}
 						
