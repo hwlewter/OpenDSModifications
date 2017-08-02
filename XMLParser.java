@@ -26,6 +26,8 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
+//import com.jme3.input.InputManager;
+
 import eu.opends.audio.AudioCenter;
 import eu.opends.canbus.CANClient;
 import eu.opends.car.SteeringCar;
@@ -161,6 +163,7 @@ public class XMLParser
 			//<message><action name="button">return</action></message>
 			
 			SteeringCar car = sim.getCar();
+			//InputManager inputMgr = sim.getInputManager();
 			
 			NodeList nodeLst = doc.getElementsByTagName("message");
 			for(int i=0; i<nodeLst.getLength(); i++)
@@ -195,18 +198,47 @@ public class XMLParser
 						}
 						
 						// handles key presses from device tester
-						if(actionID.equals("keyPress")){
+						else if(actionID.equals("keyPress")){
 							String key = valueString.trim();
 							System.out.println(key);
-							if (key.equals("KEY_H")){ // toggle transmission mode
-								
+							
+							switch (key) {
+							case "KEY_END":
 								System.out.println("toggle automatic");
 								car.getTransmission().setAutomatic(!car.getTransmission().isAutomatic());
+								PanelCenter.getMessageBox().addMessage("Toggled Manual/Automatic Mode",3);
+								break;
+							case "NEUTRAL":
+								car.getTransmission().setGear(0, false, false);
+								break;
+							case "BUTTON_8":
+								car.getTransmission().setGear(1, false, false);
+								break;
+							case "BUTTON_9":
+								car.getTransmission().setGear(2, false, false);
+								break;
+							case "BUTTON_10":
+								car.getTransmission().setGear(3, false, false);
+								break;
+							case "BUTTON_11":
+								car.getTransmission().setGear(4, false, false);
+								break;
+							case "BUTTON_12":
+								car.getTransmission().setGear(5, false, false);
+								break;
+							case "BUTTON_13":
+								car.getTransmission().setGear(6, false, false);
+								break;
+							case "BUTTON_14":
+								car.getTransmission().setGear(-1, false, false);
+								break;
+							default:
+								break;
 							}
 						}
 						
 						// handles button presses from wheel
-						if(actionID.equals("wheelButton")) {
+						else if(actionID.equals("wheelButton")) {
 							String msg = valueString.trim();
 							switch (msg) {
 							case "transmission": // toggle transmission -- purple
@@ -226,7 +258,7 @@ public class XMLParser
 						
 
 						// performs a steering input
-						if(actionID.equals("steering"))
+						else if(actionID.equals("steering"))
 						{
 							float value = Float.parseFloat(valueString);
 							System.out.println("Steering: " + value);
